@@ -19,14 +19,12 @@ public class ArgumentMapTest {
 
 	@Test
 	public void testPut() {
-
 		map.put(i);
 		assertEquals(i, map.get(Integer.class));
 	}
 	
 	@Test
 	public void testGet() {
-
 		map.put(s);
 		assertEquals(s, map.get(String.class));
 	}
