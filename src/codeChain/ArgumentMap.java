@@ -15,7 +15,7 @@ public class ArgumentMap {
 		return (T) arguments.get(type);
 	}
 	
-	public  Collection<Object> values(){
+	Collection<Object> values(){
 		return arguments.values();
 	}
 	
