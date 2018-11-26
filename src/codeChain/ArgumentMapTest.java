@@ -27,12 +27,14 @@ public class ArgumentMapTest {
 	@Test
 	public void testGet() {
 
-		map.put("abc");
+		map.put(s);
 		assertEquals(s, map.get(String.class));
 	}
 	
 	@Test
 	public void testValues() {
+		map.put(i);
+		map.put(s);
 		assertEquals(i, map.values().toArray()[0]);
 		assertEquals(s, map.values().toArray()[1]);
 	}
