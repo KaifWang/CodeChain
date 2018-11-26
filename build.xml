@@ -20,7 +20,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
   jacocoant.jar
 -->
 
-<project name="codeChain" xmlns:jacoco="antlib:org.jacoco.ant"> 
+<project name="codechain" xmlns:jacoco="antlib:org.jacoco.ant"> 
   <!--   Directory with source files -->
   <property name="src.dir" value="src"/>
   
