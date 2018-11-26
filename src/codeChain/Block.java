@@ -6,13 +6,13 @@ import java.util.function.Function;
 public class Block{
 
 	private List<Class<?>> neededArgumentTypes;
-	private Function<ArgumentList, ArgumentList> code;
+	private Function<ArgumentMap, ArgumentMap> code;
 	
 	/**
 	 * @param argument
 	 * @param code
 	 */
-	public Block(List<Class<?>> neededArgumentTypes, Function<ArgumentList, ArgumentList> code) {
+	public Block(List<Class<?>> neededArgumentTypes, Function<ArgumentMap, ArgumentMap> code) {
 		super();
 		this.neededArgumentTypes = neededArgumentTypes;
 		this.code = code;
@@ -27,7 +27,7 @@ public class Block{
 
 
 
-	ArgumentList execute(ArgumentList arguments) {
+	ArgumentMap execute(ArgumentMap arguments) {
 		return code.apply(arguments);
 	}
 	

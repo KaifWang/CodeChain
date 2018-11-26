@@ -8,15 +8,19 @@ public class CodeChainDemo {
 	public static void main(String[] args) {
 		CodeChain c = new CodeChain();
 		LinkedList<Class<?>> neededType = new LinkedList<Class<?>>();
-		neededType.add(Integer.class);
 		neededType.add(String.class);
-		Block b = new Block(neededType, a ->{String s = (String)a.getArguments().getLast();	ArgumentList results = new ArgumentList();
-		results.getArguments().add(s); return results;});
+		Block b = new Block(neededType, a ->{String s = a.get(String.class);	ArgumentMap results = new ArgumentMap();
+		results.put(s); results.put(new Integer(5)); return results;});
 		c.add(b);
-		ArgumentList input = new ArgumentList();
-		input.getArguments().add(new Integer(5));
-		input.getArguments().add(new String("abc"));
-		System.out.println(c.execute(input).getArguments().get(0));
+		ArgumentMap input = new ArgumentMap();
+		input.put(new String("abc"));
+		LinkedList<Class<?>> neededType2 = new LinkedList<Class<?>>();
+		
+		neededType2.add(Integer.class);
+		Block b2 = new Block(neededType2, a ->{Integer i = a.get(Integer.class);	ArgumentMap results = new ArgumentMap();
+		results.put(i); return results;});
+		c.add(b2);
+		System.out.println(c.execute(input).get(Integer.class));
 	}
 
 }
