@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="LAPTOP-I3LTI4VH" name="codeChain.ArgumentMapTest" skipped="0" tests="3" time="0.101" timestamp="2018-11-27T01:26:56">
+<testsuite errors="0" failures="0" hostname="LAPTOP-I3LTI4VH" name="codeChain.StressTest" skipped="0" tests="1" time="0.107" timestamp="2018-11-27T01:26:58">
   <properties>
     <property name="java.vendor" value="Oracle Corporation" />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
@@ -49,7 +49,7 @@
     <property name="java.vendor.url" value="http://java.oracle.com/" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner codeChain.ArgumentMapTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\kai97\eclipse-workspace\codechain\report\junit\TEST-codeChain.ArgumentMapTest.xml crashfile=C:\Users\kai97\eclipse-workspace\codechain\junitvmwatcher5904017924606164622.properties propsfile=C:\Users\kai97\eclipse-workspace\codechain\junit4891792270857383778.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner codeChain.StressTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\kai97\eclipse-workspace\codechain\report\junit\TEST-codeChain.StressTest.xml crashfile=C:\Users\kai97\eclipse-workspace\codechain\junitvmwatcher6784375401089019810.properties propsfile=C:\Users\kai97\eclipse-workspace\codechain\junit7269780796939902555.properties" />
     <property name="java.class.path" value="C:\Users\kai97\eclipse-workspace\codechain\build;C:\Program Files\Ant\apache-ant-1.10.5\lib\junit-4.10.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant-launcher.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant-junit.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant-junit4.jar;C:\Users\kai97\AppData\Local\Temp\jacocoagent53639229609846757.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.10.5 compiled on July 10 2018" />
     <property name="jacoco.file" value="report/jacoco/jacoco.exec" />
@@ -77,9 +77,7 @@
     <property name="ant.project.invoked-targets" value="report" />
     <property name="ant.file.type.codechain" value="file" />
   </properties>
-  <testcase classname="codeChain.ArgumentMapTest" name="testPut" time="0.003" />
-  <testcase classname="codeChain.ArgumentMapTest" name="testValues" time="0.0" />
-  <testcase classname="codeChain.ArgumentMapTest" name="testGet" time="0.0" />
+  <testcase classname="codeChain.StressTest" name="stressTest" time="0.01" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
