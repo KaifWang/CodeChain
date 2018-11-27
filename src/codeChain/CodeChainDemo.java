@@ -18,7 +18,10 @@ public class CodeChainDemo {
 		c.buildBlock(neededType2, a ->{Integer i = a.get(Integer.class);	ArgumentMap results = new ArgumentMap();
 		results.put(i); return results;});
 		
-		//System.out.println(c.execute(input).get(Integer.class));
+		try {
+			c.execute(input).get(Integer.class);
+		} catch (ArgumentTypeException e) {
+		}
 	}
 
 }

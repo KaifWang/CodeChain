@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CodeChain.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">codechain</a> &gt; <a href="index.source.html" class="el_package">codeChain</a> &gt; <span class="el_source">CodeChain.java</span></div><h1>CodeChain.java</h1><pre class="source lang-java linenums">package codeChain;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Function;
+
+<span class="fc" id="L9">public class CodeChain {</span>
+		
+	/*
+	 * A block of code chain
+	 */
+	class Block{
+
+		private List&lt;Class&lt;?&gt;&gt; neededArgumentTypes;
+		private Function&lt;ArgumentMap, ArgumentMap&gt; code;
+		private ArgumentMap arguments;
+		/**
+		 * @param argument
+		 * @param code
+		 * private Constructor to build a block
+		 */
+<span class="fc" id="L24">		private Block(List&lt;Class&lt;?&gt;&gt; neededArgumentTypes, Function&lt;ArgumentMap, ArgumentMap&gt; code) {</span>
+<span class="fc" id="L25">			super();</span>
+<span class="fc" id="L26">			this.neededArgumentTypes = neededArgumentTypes;</span>
+<span class="fc" id="L27">			this.code = code;</span>
+<span class="fc" id="L28">		}</span>
+		
+		/**
+		 * @return the arguments
+		 */
+		private List&lt;Class&lt;?&gt;&gt; getNeededArgumentTypes() {
+<span class="fc" id="L34">			return neededArgumentTypes;</span>
+		}
+		
+		/*
+		 * Set arguments according to the neededArgumentTypes requested from the user
+		 */
+		private void setArguments() throws ArgumentTypeException {
+<span class="fc" id="L41">			arguments = new ArgumentMap();</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">			for(Class&lt;?&gt; type : getNeededArgumentTypes()) {</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">				if(!allowableArguments.containsKey(type)) {</span>
+<span class="fc" id="L44">					throw new ArgumentTypeException(&quot;Needed type does not exist in the code chain&quot;);</span>
+				}
+<span class="fc" id="L46">				arguments.put(allowableArguments.get(type));</span>
+<span class="fc" id="L47">			}</span>
+<span class="fc" id="L48">		}</span>
+
+		/*
+		 * Execute this single block 
+		 */
+		private ArgumentMap execute() throws ArgumentTypeException{
+<span class="fc" id="L54">			setArguments();</span>
+<span class="fc" id="L55">			return code.apply(arguments);</span>
+		}
+		
+		class BlockTestHook{
+
+			public void setArguments() throws ArgumentTypeException{
+				Block.this.setArguments();
+			}
+
+			public ArgumentMap execute() throws ArgumentTypeException{
+				return Block.this.execute();
+			}
+			
+		}
+	}
+
+<span class="fc" id="L71">	private LinkedList&lt;Block&gt; blockList = new LinkedList&lt;Block&gt;();</span>
+<span class="fc" id="L72">	private HashMap&lt;Class&lt;?&gt;, Object&gt; allowableArguments = new HashMap&lt;Class&lt;?&gt;, Object&gt;();</span>
+	
+	/*
+	 * Helper method, put all the input arguments into the code chain arguments
+	 */
+	private void addToMap(ArgumentMap arguments) {
+<span class="fc bfc" id="L78" title="All 2 branches covered.">		for(Object argument : arguments.values()) {</span>
+<span class="fc" id="L79">			allowableArguments.put(argument.getClass(), argument);</span>
+<span class="fc" id="L80">		}</span>
+<span class="fc" id="L81">	}</span>
+	
+	/*
+	 * build method for block, directly append to the end of the code chain. 
+	 * Error handling: if the neededArgumentTypes user request for this block does not exist in the codechain,
+	 * inform the user and do not build the block
+	 */
+	public void buildBlock(List&lt;Class&lt;?&gt;&gt; neededArgumentTypes, Function&lt;ArgumentMap, ArgumentMap&gt; code) {
+<span class="fc" id="L89">			blockList.add(new Block(neededArgumentTypes, code));</span>
+<span class="fc" id="L90">	}</span>
+	
+	
+	/*
+	 * Execute the entire code chain, results from previous blocks can be used as arguments for later blocks,
+	 * Final result of the block chain will be the result of the last block
+	 */
+	public ArgumentMap execute(ArgumentMap arguments) throws ArgumentTypeException{
+<span class="fc" id="L98">		ArgumentMap currentResults = null;</span>
+<span class="fc" id="L99">		addToMap(arguments);</span>
+<span class="fc" id="L100">		Iterator&lt;Block&gt; iterator = blockList.iterator();</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">		while(iterator.hasNext()) {</span>
+<span class="fc" id="L102">			Block currentBlock = iterator.next();</span>
+<span class="fc" id="L103">			currentResults = currentBlock.execute();</span>
+<span class="fc" id="L104">			addToMap(currentResults);</span>
+<span class="fc" id="L105">		}</span>
+<span class="fc" id="L106">		return currentResults;</span>
+	}
+	
+	class TestHook{
+		public void addToMap(ArgumentMap arguments) {
+			CodeChain.this.addToMap(arguments);
+		}
+		
+		/*
+		 * Helper method for testing
+		 */
+		public Block BlockConstructor(List&lt;Class&lt;?&gt;&gt; neededArgumentTypes, Function&lt;ArgumentMap, ArgumentMap&gt; code) {
+			return new Block(neededArgumentTypes,code);
+		}
+		
+		/*
+		 * Helper method for testing
+		 */
+		public HashMap&lt;Class&lt;?&gt;, Object&gt; getAllowableArguments() {
+			return CodeChain.this.allowableArguments;
+		}
+		
+		/*
+		 * Helper method for testing
+		 */
+		public LinkedList&lt;Block&gt; getBlockList(){
+			return CodeChain.this.blockList;
+		}
+		
+		
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201810121248</span></div></body></html>

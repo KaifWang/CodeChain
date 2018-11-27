@@ -33,8 +33,8 @@ public class ArgumentMapTest {
 	public void testValues() {
 		map.put(i);
 		map.put(s);
-		assertEquals(i, map.values().toArray()[0]);
-		assertEquals(s, map.values().toArray()[1]);
+		assertTrue(map.values().contains(i));
+		assertTrue(s, map.values().contains(s));
 	}
 
 }

@@ -93,7 +93,9 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
                             
       <structure name="${ant.project.name}">
         <classfiles>
-          <fileset dir="${build.dir}"/>
+          <fileset dir="${build.dir}">
+		<exclude name="**/*Test*.class" />
+	  </fileset>
         </classfiles>
         <sourcefiles>
           <fileset dir="${src.dir}"/>

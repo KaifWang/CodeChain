@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CodeChainTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">codechain</a> &gt; <a href="index.source.html" class="el_package">codeChain</a> &gt; <span class="el_source">CodeChainTest.java</span></div><h1>CodeChainTest.java</h1><pre class="source lang-java linenums">package codeChain;
+
+import static org.junit.Assert.*;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import org.junit.Before;
+import org.junit.Test;
+
+<span class="fc" id="L11">public class CodeChainTest {</span>
+	CodeChain c;
+	CodeChain.TestHook codeChainTestHook;
+	CodeChain.Block.BlockTestHook blockTestHook1;
+	CodeChain.Block.BlockTestHook blockTestHook2;
+	@Before
+	public void setUp() throws Exception {
+<span class="fc" id="L18">		c = new CodeChain();</span>
+<span class="fc" id="L19">		codeChainTestHook =  c.new TestHook();</span>
+<span class="fc" id="L20">		LinkedList&lt;Class&lt;?&gt;&gt; testBlockNeededType1 = new LinkedList&lt;Class&lt;?&gt;&gt;();</span>
+<span class="fc" id="L21">		testBlockNeededType1.add(String.class);</span>
+<span class="fc" id="L22">		LinkedList&lt;Class&lt;?&gt;&gt; testBlockNeededType2 = new LinkedList&lt;Class&lt;?&gt;&gt;();</span>
+<span class="fc" id="L23">		testBlockNeededType2.add(Integer.class);</span>
+<span class="fc" id="L24">		CodeChain.Block testBlock1 = codeChainTestHook.BlockConstructor(testBlockNeededType1, </span>
+			map -&gt; {
+<span class="fc" id="L26">				ArgumentMap result = new ArgumentMap();</span>
+<span class="fc" id="L27">				String s = map.get(String.class);</span>
+<span class="fc" id="L28">				result.put(s);</span>
+<span class="fc" id="L29">				return result;}</span>
+			);
+<span class="fc" id="L31">		CodeChain.Block testBlock2 = codeChainTestHook.BlockConstructor(testBlockNeededType2, </span>
+				map -&gt; {
+<span class="nc" id="L33">					ArgumentMap result = new ArgumentMap();</span>
+<span class="nc" id="L34">					String s = map.get(String.class);</span>
+<span class="nc" id="L35">					result.put(s);</span>
+<span class="nc" id="L36">					return result;}</span>
+				);
+<span class="fc" id="L38">		blockTestHook1 = testBlock1.new BlockTestHook();</span>
+<span class="fc" id="L39">		blockTestHook2 = testBlock2.new BlockTestHook();</span>
+<span class="fc" id="L40">	}</span>
+
+	@Test
+	public void testAddToMap() {
+<span class="fc" id="L44">		ArgumentMap input = new ArgumentMap();</span>
+<span class="fc" id="L45">		String testString = new String(&quot;Test&quot;);</span>
+<span class="fc" id="L46">		Integer testInteger = new Integer(5);</span>
+<span class="fc" id="L47">		input.put(testString);</span>
+<span class="fc" id="L48">		input.put(testInteger);</span>
+<span class="fc" id="L49">		codeChainTestHook.addToMap(input);</span>
+<span class="fc" id="L50">		HashMap&lt;Class&lt;?&gt;, Object&gt; allowableArgument = codeChainTestHook.getAllowableArguments();</span>
+<span class="fc" id="L51">		assertEquals(testString, allowableArgument.get(String.class));</span>
+<span class="fc" id="L52">		assertEquals(testInteger, allowableArgument.get(Integer.class));</span>
+<span class="fc" id="L53">	}</span>
+	@Test
+	public void testBlockSetArguments() {
+		/*
+		 * Nominal Case: all needed types exist in the codeChain
+		 */
+<span class="fc" id="L59">		ArgumentMap input = new ArgumentMap();</span>
+<span class="fc" id="L60">		String testString = new String(&quot;Test&quot;);</span>
+<span class="fc" id="L61">		input.put(testString);</span>
+<span class="fc" id="L62">		codeChainTestHook.addToMap(input);</span>
+		try {
+<span class="fc" id="L64">			blockTestHook1.setArguments();</span>
+<span class="fc" id="L65">			ArgumentMap result = blockTestHook1.execute();</span>
+<span class="fc" id="L66">			assertEquals(testString, result.get(String.class));</span>
+<span class="nc" id="L67">		} catch (ArgumentTypeException e) {</span>
+<span class="nc" id="L68">			fail(&quot;Unexpected Exception Occurred&quot;);</span>
+<span class="fc" id="L69">		}</span>
+		
+		/*
+		 * Branch Coverage: needed type not in the code chain
+		 * expect to throw an exception
+		 */
+		try {
+<span class="nc" id="L76">			blockTestHook2.setArguments();</span>
+<span class="nc" id="L77">			fail(&quot;Unexpected Exception Occurred&quot;);</span>
+<span class="fc" id="L78">		} catch (ArgumentTypeException e) {</span>
+<span class="nc" id="L79">		}</span>
+
+<span class="fc" id="L81">	}</span>
+	
+	@Test
+	public void testBlockExecute() {
+<span class="fc" id="L85">		ArgumentMap input = new ArgumentMap();</span>
+<span class="fc" id="L86">		String testString = new String(&quot;Test&quot;);</span>
+<span class="fc" id="L87">		input.put(testString);</span>
+<span class="fc" id="L88">		codeChainTestHook.addToMap(input);</span>
+		try {
+<span class="fc" id="L90">			blockTestHook1.setArguments();</span>
+<span class="fc" id="L91">			ArgumentMap result = blockTestHook1.execute();</span>
+<span class="fc" id="L92">			assertEquals(testString, result.get(String.class));</span>
+<span class="nc" id="L93">		} catch (ArgumentTypeException e) {</span>
+<span class="nc" id="L94">			fail(&quot;Unexpected Exception Occurred&quot;);</span>
+<span class="fc" id="L95">		}</span>
+
+<span class="fc" id="L97">	}</span>
+	
+	@Test
+	public void testBuildBlock() {
+<span class="fc" id="L101">		LinkedList&lt;Class&lt;?&gt;&gt; testBlockNeededType = new LinkedList&lt;Class&lt;?&gt;&gt;();</span>
+<span class="fc" id="L102">		c.buildBlock(testBlockNeededType, </span>
+				map -&gt; {
+<span class="nc" id="L104">					ArgumentMap result = new ArgumentMap();</span>
+<span class="nc" id="L105">					String s = map.get(String.class);</span>
+<span class="nc" id="L106">					Integer i = map.get(Integer.class);</span>
+<span class="nc" id="L107">					result.put(s);</span>
+<span class="nc" id="L108">					result.put(i);</span>
+<span class="nc" id="L109">					return result;}</span>
+				);
+<span class="fc" id="L111">		assertNotNull(codeChainTestHook.getBlockList().get(0));</span>
+<span class="fc" id="L112">	}</span>
+	
+	@Test
+	public void testExecute() {
+		
+		/*
+		 * Nominal Case:All neededTypes exist, Successfully added block
+		 */
+<span class="fc" id="L120">		ArgumentMap input = new ArgumentMap();</span>
+<span class="fc" id="L121">		LinkedList&lt;Class&lt;?&gt;&gt; testBlockNeededType = new LinkedList&lt;Class&lt;?&gt;&gt;();</span>
+<span class="fc" id="L122">		testBlockNeededType.add(String.class);</span>
+<span class="fc" id="L123">		testBlockNeededType.add(Integer.class);</span>
+<span class="fc" id="L124">		String testString = new String(&quot;Test&quot;);</span>
+<span class="fc" id="L125">		Integer testInteger = new Integer(5);</span>
+<span class="fc" id="L126">		input.put(testString);</span>
+<span class="fc" id="L127">		input.put(testInteger);</span>
+<span class="fc" id="L128">		c.buildBlock(testBlockNeededType, </span>
+				map -&gt; {
+<span class="fc" id="L130">					ArgumentMap result = new ArgumentMap();</span>
+<span class="fc" id="L131">					String s = map.get(String.class);</span>
+<span class="fc" id="L132">					Integer i = map.get(Integer.class);</span>
+<span class="fc" id="L133">					result.put(s);</span>
+<span class="fc" id="L134">					result.put(i);</span>
+<span class="fc" id="L135">					return result;}</span>
+				);
+		try {
+			ArgumentMap result;
+<span class="fc" id="L139">			result = c.execute(input);</span>
+<span class="fc" id="L140">			assertEquals(testString, result.get(String.class));</span>
+<span class="fc" id="L141">			assertEquals(testInteger, result.get(Integer.class));</span>
+<span class="nc" id="L142">		} catch (ArgumentTypeException e) {</span>
+<span class="nc" id="L143">			fail(&quot;Unexpected Exception Occurred&quot;);</span>
+<span class="fc" id="L144">		}</span>
+
+		/*
+		 * Branch Coverage: No block in the codeChain, expected to return a null
+		 */
+<span class="fc" id="L149">		CodeChain c2 = new CodeChain();</span>
+		try {
+<span class="fc" id="L151">			ArgumentMap result2 = c2.execute(input);</span>
+<span class="fc" id="L152">			assertNull(result2);</span>
+<span class="nc" id="L153">		} catch (ArgumentTypeException e) {</span>
+<span class="nc" id="L154">			fail(&quot;Unexpected Exception Occurred&quot;);</span>
+<span class="fc" id="L155">		}</span>
+<span class="fc" id="L156">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201810121248</span></div></body></html>
