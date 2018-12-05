@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="LAPTOP-I3LTI4VH" name="codeChain.StressTest" skipped="0" tests="1" time="0.107" timestamp="2018-11-27T01:26:58">
+<testsuite errors="0" failures="0" hostname="LAPTOP-I3LTI4VH" name="codeChain.StressTest" skipped="0" tests="1" time="0.087" timestamp="2018-12-05T21:59:11">
   <properties>
     <property name="java.vendor" value="Oracle Corporation" />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
@@ -40,7 +40,7 @@
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
     <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
-    <property name="_jacoco.agentFile" value="C:\Users\kai97\AppData\Local\Temp\jacocoagent53639229609846757.jar" />
+    <property name="_jacoco.agentFile" value="C:\Users\kai97\AppData\Local\Temp\jacocoagent1349884693567229595.jar" />
     <property name="user.script" value="" />
     <property name="user.home" value="C:\Users\kai97" />
     <property name="java.specification.vendor" value="Oracle Corporation" />
@@ -49,8 +49,8 @@
     <property name="java.vendor.url" value="http://java.oracle.com/" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner codeChain.StressTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\kai97\eclipse-workspace\codechain\report\junit\TEST-codeChain.StressTest.xml crashfile=C:\Users\kai97\eclipse-workspace\codechain\junitvmwatcher6784375401089019810.properties propsfile=C:\Users\kai97\eclipse-workspace\codechain\junit7269780796939902555.properties" />
-    <property name="java.class.path" value="C:\Users\kai97\eclipse-workspace\codechain\build;C:\Program Files\Ant\apache-ant-1.10.5\lib\junit-4.10.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant-launcher.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant-junit.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant-junit4.jar;C:\Users\kai97\AppData\Local\Temp\jacocoagent53639229609846757.jar" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner codeChain.StressTest skipNonTests=false filtertrace=false haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\kai97\eclipse-workspace\codechain\report\junit\TEST-codeChain.StressTest.xml crashfile=C:\Users\kai97\eclipse-workspace\codechain\junitvmwatcher6484323793829908388.properties propsfile=C:\Users\kai97\eclipse-workspace\codechain\junit3255052447828558172.properties" />
+    <property name="java.class.path" value="C:\Users\kai97\eclipse-workspace\codechain\build;C:\Program Files\Ant\apache-ant-1.10.5\lib\junit-4.10.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant-launcher.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant-junit.jar;C:\Program Files\Ant\apache-ant-1.10.5\lib\ant-junit4.jar;C:\Users\kai97\AppData\Local\Temp\jacocoagent1349884693567229595.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.10.5 compiled on July 10 2018" />
     <property name="jacoco.file" value="report/jacoco/jacoco.exec" />
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
@@ -74,10 +74,10 @@
     <property name="file.encoding" value="Cp1252" />
     <property name="java.specification.version" value="1.8" />
     <property name="src.dir" value="src" />
-    <property name="ant.project.invoked-targets" value="report" />
+    <property name="ant.project.invoked-targets" value="test" />
     <property name="ant.file.type.codechain" value="file" />
   </properties>
-  <testcase classname="codeChain.StressTest" name="stressTest" time="0.01" />
+  <testcase classname="codeChain.StressTest" name="stressTest" time="0.009" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

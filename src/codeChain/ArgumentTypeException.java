@@ -1,5 +1,10 @@
 package codeChain;
 
+
+/**
+ * @author Kai Wang
+ * Exception designated for wrong argument types in the codeChain
+ */
 public class ArgumentTypeException extends Exception {
 
 	/**
