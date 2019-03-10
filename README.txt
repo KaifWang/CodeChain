@@ -1,0 +1,1 @@
+A chain of blocks of code that executes itself consecutively given the input.

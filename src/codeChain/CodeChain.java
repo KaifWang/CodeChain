@@ -127,9 +127,8 @@ public class CodeChain {
 	public ArgumentMap execute(ArgumentMap arguments) throws ArgumentTypeException{
 		ArgumentMap currentResults = null;  //Default result is null if no block exists in the code chain
 		addToMap(arguments);
-		Iterator<Block> iterator = blockList.iterator();
-		while(iterator.hasNext()) {
-			Block currentBlock = iterator.next();
+		for(int i = 0; i < blockList.size(); i ++) {
+			Block currentBlock = blockList.get(i);
 			currentResults = currentBlock.execute();
 			addToMap(currentResults);
 		}
